@@ -1,0 +1,134 @@
+#adelanto time to do it
+#Pantalla principal
+from tkinter import *
+
+raiz=Tk()
+programa=Frame(raiz, width=1000, height=1000)
+programa.pack()
+
+#Variables
+operacion=""
+resultado=0
+numeropantalla=StringVar()
+i = 0
+
+#Pantalla principal
+pantalla=Entry(programa, textvariable=numeropantalla)
+pantalla.grid(row=1, column=1, padx=10, pady=10, columnspan=4)
+pantalla.config(background="pink", justify="right")
+
+#Pulsaciones
+def numeropulsado(num):
+    global operacion
+    if operacion!="":
+        numeropantalla.set(num)
+        operacion=""
+    else:
+        numeropantalla.set(numeropantalla.get() + num)
+
+#Funcion suma
+def suma(num):
+    global operacion
+    global resultado
+    global i
+    resultado+=int(num)
+    operacion="suma"
+    numeropantalla.set(resultado)
+    i += 1
+
+#Funcion resta
+def resta(num):
+    global operacion
+    global resultado
+    global i
+    if i == 0:
+        resultado=int(num)-resultado
+    elif i > 0:
+        resultado=resultado - int(num)
+    operacion="resta"
+    i += 1
+    numeropantalla.set(resultado)
+
+#Funcion multiplicacion
+def multiplicacion(num):
+    global operacion
+    global resultado
+    global i
+    if i == 0:
+        resultado = 1
+        resultado = int(num) * resultado
+    elif i > 0:
+        resultado = resultado * int(num)
+    operacion = "multiplicacion"
+    i += 1
+    numeropantalla.set(resultado)
+
+#Funcion multiplicacion
+def dividir(num):
+    global operacion
+    global resultado
+    global i
+    if i == 0:
+        resultado = 1
+        resultado = int(num) / resultado
+    elif i > 0:
+        resultado = resultado / int(num)
+    operacion = "division"
+    i += 1
+    numeropantalla.set(resultado)
+
+#Funcion Resultado
+def resultado_total():
+    global resultado
+    global operacion
+    if operacion == "suma":
+        numeropantalla.set(resultado+int(numeropantalla.get()))
+    if operacion == "resta":
+        numeropantalla.set(resultado-int(numeropantalla.get()))
+    if operacion == "multiplicacion":
+        numeropantalla.set(resultado * int(numeropantalla.get()))
+    if operacion == "division":
+        numeropantalla.set(resultado / int(numeropantalla.get()))
+    resultado=0
+
+#Fila 1
+boton1=Button(programa, text="1",width=3, command=lambda:numeropulsado("1"))
+boton1.grid(row=2, column=1)
+boton2=Button(programa, text="2",width=3, command=lambda:numeropulsado("2"))
+boton2.grid(row=2, column=2)
+boton3=Button(programa, text="3",width=3, command=lambda:numeropulsado("3"))
+boton3.grid(row=2, column=3)
+botonmas=Button(programa, text="+", width=3, command=lambda:suma(numeropantalla.get()))
+botonmas.grid(row=2,column=4)
+
+#Fila 2
+boton4=Button(programa, text="4",width=3, command=lambda:numeropulsado("4"))
+boton4.grid(row=3, column=1)
+boton5=Button(programa, text="5",width=3, command=lambda:numeropulsado("5"))
+boton5.grid(row=3, column=2)
+boton6=Button(programa, text="6",width=3, command=lambda:numeropulsado("6"))
+boton6.grid(row=3, column=3)
+botonresta=Button(programa, text="-", width=3, command=lambda:resta(numeropantalla.get()))
+botonresta.grid(row=3,column=4)
+
+#Fila 3
+boton7=Button(programa, text="7",width=3, command=lambda:numeropulsado("7"))
+boton7.grid(row=4, column=1)
+boton8=Button(programa, text="8",width=3, command=lambda:numeropulsado("8"))
+boton8.grid(row=4, column=2)
+boton9=Button(programa, text="9",width=3, command=lambda:numeropulsado("9"))
+boton9.grid(row=4, column=3)
+botonmulti=Button(programa, text="x", width=3, command=lambda:multiplicacion(numeropantalla.get()))
+botonmulti. grid(row=4,column=4)
+
+#Fila 4
+boton0=Button(programa, text="0",width=3, command=lambda:numeropulsado("0"))
+boton0.grid(row=5, column=1)
+botoncoma=Button(programa, text=".",width=3, command=lambda:numeropulsado("."))
+botoncoma.grid(row=5, column=2)
+botondividir=Button(programa, text="/",width=3, command=lambda:dividir(numeropantalla.get()))
+botondividir.grid(row=5, column=3)
+botonigual=Button(programa, text="=", width=3, command=lambda:resultado_total())
+botonigual.grid(row=5,column=4)
+
+raiz.mainloop()
